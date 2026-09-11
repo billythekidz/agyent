@@ -290,6 +290,7 @@ and begins processing inbound turns through the local Antigravity (AGY) harness.
 		secMgr := securityAdapter.NewManager(cfg.Security, channelMux, mainLogger)
 		secMgr.SetEventBus(bus)
 		channelMux.SetURLSafetyEvaluator(secMgr)
+		channelMux.SetOutboundSanitizer(secMgr)
 
 		ipcTokenBytes := make([]byte, 32)
 		if _, err := rand.Read(ipcTokenBytes); err != nil {
