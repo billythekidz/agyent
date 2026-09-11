@@ -5,6 +5,44 @@ All notable changes to **agyent** are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.59] - 2026-09-11
+
+### Security & Hardening
+- **Tool Guardrail Enforcement on `call_mcp_tool` and `mcp__*` (SEC-01):**
+  - Evaluated MCP tool invocations against anti-self-escalation filters, read-only preset mutation rules, path jails, and command execution policies.
+- **Local IPC Authorization Token & Loopback Hardening (SEC-02):**
+  - Configured cryptographically secure 32-byte hex token generation at daemon startup.
+  - Enforced constant-time token validation on local IPC endpoints to prevent unauthenticated loopback request spoofing.
+- **Outbound Streaming DLP & Lookback Buffer in Channel Throttlers (SEC-03):**
+  - Integrated `DLPScrubber` into `DeliveryThrottler` for Telegram and Zalo channels.
+  - Implemented 128-character sliding lookback buffer to detect and mask secrets fragmented across consecutive streaming chunks.
+- **Inbound Channel Fail-Closed Admission (SEC-04):**
+  - Enforced strict fail-closed admission for Telegram and Zalo when `allowed_users` is configured.
+- **SSRF Scheme Validation & Private Network Bypass Fix (SEC-05, SEC-06):**
+  - Restricted URL evaluation strictly to `http` and `https` schemes in `EvaluateURL`, blocking `file://` and `gopher://` bypasses.
+  - Hardened private network resolution against `0.0.0.0` address bypasses.
+- **Control-Plane File Read Protection in Path Jail (SEC-07):**
+  - Blocked unauthorized reads targeting Tier 0/1 control-plane files (`agyent.db*`, `config.yaml`, credentials) even under permissive and read-only presets.
+- **APIS-4D Complete Identity Injection in MCP Syncer (SEC-08):**
+  - Propagated all 5 APIS-4D environment variables (`AGYENT_SESSION_KEY`, `AGYENT_AGENT_WORKSPACE`, `AGYENT_AGENT_NAME`, `AGYENT_USER_ID`, `AGYENT_TURN_ID`) to mounted MCP server processes.
+- **macOS APFS Case-Sensitivity Evasion Fix (SEC-09):**
+  - Applied case-folding normalization on `darwin` in path jail evaluator to prevent uppercase bypasses on case-insensitive filesystems.
+- **Indirect Prompt Injection Neutralization on Tool Outputs (SEC-10):**
+  - Integrated `ValidateInjection` into `SanitizeToolOutput` to neutralize prompt injection triggers in tool output.
+- **Cloud Metadata Egress Scope Hardening (SEC-11):**
+  - Expanded metadata CIDRs to cover `169.254.0.0/16`, IPv6 `[fd00:ec2::254]/128`, `fe80::/10`, and FQDN trailing dot normalization.
+
+### Architecture & Reliability
+- **Subagent Execution Chokepoint & Hexagonal Decoupling (ARCH-01, ARCH-02):**
+  - Decoupled `subagent` adapter from direct harness imports.
+  - Routed all subagent turns through `ExecutionServicePort.ExecuteTurn` to guarantee RBAC policy evaluation, admission ticketing, and audit logging.
+- **Orderly Inverted Daemon Shutdown Sequence (ARCH-03):**
+  - Restructured graceful shutdown: inbound pollers stop -> IPC server terminates -> debouncers flush -> engine stops -> channel throttlers drain -> EventBus closes -> SQLite store closes.
+- **Linux Process Death Signal (ARCH-06):**
+  - Configured `SysProcAttr.Pdeathsig = syscall.SIGKILL` on Linux child subprocesses to prevent orphaned zombie processes on daemon termination.
+
+---
+
 ## [1.0.58] - 2026-09-11
 
 ### Changed
