@@ -1,9 +1,9 @@
 # agyent Windows PowerShell Installer
-# Usage: irm https://raw.githubusercontent.com/billythekidz/agyent/main/install.ps1 | iex
+# Usage: irm https://raw.githubusercontent.com/billythekidz/antigravity-inbox/main/install.ps1 | iex
 
 $ErrorActionPreference = 'Stop'
 
-$repo = "billythekidz/agyent"
+$repo = "billythekidz/antigravity-inbox"
 $githubUrl = "https://github.com/$repo"
 $binaryName = "agyent.exe"
 

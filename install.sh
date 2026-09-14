@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO="billythekidz/agyent"
+REPO="billythekidz/antigravity-inbox"
 GITHUB_URL="https://github.com/${REPO}"
 BINARY_NAME="agyent"
 

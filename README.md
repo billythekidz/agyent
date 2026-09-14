@@ -61,21 +61,21 @@ in [docs/architecture.md](docs/architecture.md). Coding agents must start with
 
 ## Install
 
-Download a release from [GitHub Releases](https://github.com/billythekidz/agyent/releases/latest),
+Download a release from [GitHub Releases](https://github.com/billythekidz/antigravity-inbox/releases/latest),
 or use the repository installers:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/billythekidz/agyent/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/billythekidz/antigravity-inbox/main/install.sh | bash
 ```
 
 ```powershell
-irm https://raw.githubusercontent.com/billythekidz/agyent/main/install.ps1 | iex
+irm https://raw.githubusercontent.com/billythekidz/antigravity-inbox/main/install.ps1 | iex
 ```
 
 To build from a clone:
 
 ```bash
-git clone https://github.com/billythekidz/agyent.git
+git clone https://github.com/billythekidz/antigravity-inbox.git
 cd agyent
 make build
 ./bin/agyent version
