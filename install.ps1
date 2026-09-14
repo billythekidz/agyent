@@ -1,9 +1,9 @@
 # agyent Windows PowerShell Installer
-# Usage: irm https://raw.githubusercontent.com/khanhbkqt/agyent/main/install.ps1 | iex
+# Usage: irm https://raw.githubusercontent.com/billythekidz/agyent/main/install.ps1 | iex
 
 $ErrorActionPreference = 'Stop'
 
-$repo = "khanhbkqt/agyent"
+$repo = "billythekidz/agyent"
 $githubUrl = "https://github.com/$repo"
 $binaryName = "agyent.exe"
 

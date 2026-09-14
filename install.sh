@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-REPO="khanhbkqt/agyent"
+REPO="billythekidz/agyent"
 GITHUB_URL="https://github.com/${REPO}"
 BINARY_NAME="agyent"
 
